@@ -25,7 +25,6 @@ public class HomePage extends BasePage {
     public HomePage waitForPageToLoad() {
         super.waitForPageToLoad();
         return this;
-
     }
 
     public HomePage closePopUp() {

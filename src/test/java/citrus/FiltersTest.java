@@ -45,7 +45,6 @@ public class FiltersTest {
                 .verifyFilterByName("Samsung");
         productListPage.getFilterFragment()
                 .verifyPriceFilter(5000, 15000);
-
     }
 
     @Test

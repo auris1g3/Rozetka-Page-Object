@@ -2,6 +2,7 @@ package fragments;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import pages.citrus.BasePage;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -32,4 +33,5 @@ public class CartFragment {
     public void clickOnCloseCartButton() {
         closeCartButton.click();
     }
+
 }

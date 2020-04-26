@@ -27,11 +27,11 @@ public class ProductListPage extends BasePage {
         $x("//h5[contains(text(), '" + productName + "')]/following::*/i[@class='icon-new-citrus-cart el-tooltip item']").click();
     }
 
-    public String getProductPriceByPositionList(int positionProduct) {
+    public String getProductPriceByPositionListFromSearch(int positionProduct) {
         return $x("//div[@class='product-card product-card--mini'][" + positionProduct + "]//span[@class='price-number']").getText();
     }
 
-    public String getProductNameByPositionList(int positionProduct) {
+    public String getProductNameByPositionListFromSearch(int positionProduct) {
         return $x("//div[@class='product-card product-card--mini'][" + positionProduct + "]//h5").getText();
     }
 
@@ -58,12 +58,26 @@ public class ProductListPage extends BasePage {
         return sb.toString();
     }
 
-    public ProductListPage clickAddToCompareProductByPositionList(int positionProduct) {
-        $x("//div[@class='product-card product-card--mini'][" + positionProduct + "]//i[@class='icon-comparison2 el-tooltip item']").click();
+    public ProductListPage clickAddToCompareProductByPositionListFromSearch(int positionProduct) {
+        $x("//div[@class='product-card product-card--mini'][" + positionProduct + "]//i[@class='icon-comparison2 el-tooltip item']").hover().click();
         return this;
     }
 
     public FilterFragment getFilterFragment() {
         return filterFragment;
     }
+
+    public void clickAddToCompareProductByPositionListFromMenu(int position) {
+        $x("//div[@itemscope='itemscope'][" + position + "]//div[@class='product-card__actions']").hover();
+        $x("//div[@itemscope='itemscope'][" + position + "]//span[@class='icon icon-comparison2 el-tooltip item']").click();
+    }
+
+    public String getProductPriceByPositionListFromMenu(int positionProduct) {
+        return $x("//div[@itemscope='itemscope'][" + positionProduct + "]//div[@class='prices__price']/span").getText();
+    }
+
+    public String getProductNameByPositionListFromMenu(int positionProduct) {
+        return $x("//div[@itemscope='itemscope'][" + positionProduct + "]//div[@class='product-card__name']/a").getText().substring(0, 20);
+    }
 }
+

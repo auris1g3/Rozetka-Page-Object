@@ -5,10 +5,7 @@ import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.citrus.ComparisonPage;
-import pages.citrus.HomePage;
-import pages.citrus.ProductListPage;
-import pages.citrus.ProductPage;
+import pages.citrus.*;
 
 import static com.codeborne.selenide.Selenide.clearBrowserLocalStorage;
 import static com.codeborne.selenide.Selenide.open;
@@ -87,14 +84,14 @@ public class CartTest {
                 .closePopUp()
                 .getHeaderFragment()
                 .searchProduct("Apple iPhone");
-        String firstProductPrice = productListPage.getProductPriceByPositionList(1);
-        String firstProductName = productListPage.getProductNameByPositionList(1);
+        String firstProductPrice = productListPage.getProductPriceByPositionListFromSearch(1);
+        String firstProductName = productListPage.getProductNameByPositionListFromSearch(1);
         productListPage.clickAddToCartProductByPositionList(1);
         productListPage.getCartFragment()
                 .clickOnCloseCartButton();
 
-        String secondProductPrice = productListPage.getProductPriceByPositionList(2);
-        String secondProductName = productListPage.getProductNameByPositionList(2);
+        String secondProductPrice = productListPage.getProductPriceByPositionListFromSearch(2);
+        String secondProductName = productListPage.getProductNameByPositionListFromSearch(2);
         productListPage.clickAddToCartProductByPositionList(2);
         productListPage.getCartFragment()
                 .clickOnCloseCartButton();
@@ -117,13 +114,13 @@ public class CartTest {
                 .getHeaderFragment()
                 .searchProduct("Apple iPhone");
 
-        String firstProductPrice = productListPage.getProductPriceByPositionList(1);
-        String firstProductName = productListPage.getProductNameByPositionList(1);
-        productListPage.clickAddToCompareProductByPositionList(1);
+        String firstProductPrice = productListPage.getProductPriceByPositionListFromSearch(1);
+        String firstProductName = productListPage.getProductNameByPositionListFromSearch(1);
+        productListPage.clickAddToCompareProductByPositionListFromSearch(1);
 
-        String secondProductPrice = productListPage.getProductPriceByPositionList(2);
-        String secondProductName = productListPage.getProductNameByPositionList(2);
-        productListPage.clickAddToCompareProductByPositionList(2);
+        String secondProductPrice = productListPage.getProductPriceByPositionListFromSearch(2);
+        String secondProductName = productListPage.getProductNameByPositionListFromSearch(2);
+        productListPage.clickAddToCompareProductByPositionListFromSearch(2);
         productListPage.getHeaderFragment()
                 .clickOnIconComparison();
 
