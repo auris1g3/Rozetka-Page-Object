@@ -1,16 +1,18 @@
 package pages.citrus;
 
 import com.codeborne.selenide.Condition;
-import fragments.CitrusCartFragment;
-import fragments.CitrusSearchFragment;
+import fragments.CartFragment;
+import fragments.FilterFragment;
+import fragments.HeaderFragment;
 
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class ProductListPage extends BasePage {
 
-    CitrusCartFragment cartFragment = new CitrusCartFragment();
-    CitrusSearchFragment searchFragment = new CitrusSearchFragment();
+    CartFragment cartFragment = new CartFragment();
+    HeaderFragment headerFragment = new HeaderFragment();
+    FilterFragment filterFragment = new FilterFragment();
 
     public ProductListPage clickOnProductByName(String productName) {
         $$x("//div[@class='product-card__name']/a/span").findBy(Condition.text(productName)).click();
@@ -21,9 +23,8 @@ public class ProductListPage extends BasePage {
         return $x("//h5[contains(text(), '" + productName + "')]/following::*/span[@class='price-number']").getText();
     }
 
-    public ProductListPage clickAddToCartProductByName(String productName) {
+    public void clickAddToCartProductByName(String productName) {
         $x("//h5[contains(text(), '" + productName + "')]/following::*/i[@class='icon-new-citrus-cart el-tooltip item']").click();
-        return this;
     }
 
     public String getProductPriceByPositionList(int positionProduct) {
@@ -39,12 +40,12 @@ public class ProductListPage extends BasePage {
         return this;
     }
 
-    public CitrusCartFragment getCartFragment() {
+    public CartFragment getCartFragment() {
         return cartFragment;
     }
 
-    public CitrusSearchFragment getSearchFragment() {
-        return searchFragment;
+    public HeaderFragment getHeaderFragment() {
+        return headerFragment;
     }
 
     public String countTotalPriceInCart() {
@@ -60,5 +61,9 @@ public class ProductListPage extends BasePage {
     public ProductListPage clickAddToCompareProductByPositionList(int positionProduct) {
         $x("//div[@class='product-card product-card--mini'][" + positionProduct + "]//i[@class='icon-comparison2 el-tooltip item']").click();
         return this;
+    }
+
+    public FilterFragment getFilterFragment() {
+        return filterFragment;
     }
 }

@@ -5,13 +5,13 @@ import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class CitrusSearchFragment {
+public class HeaderFragment {
 
     SelenideElement searchInput = $("#search-input");
     SelenideElement iconCart = $x("//i[@class='icon-new-citrus-cart']");
     SelenideElement iconComparison = $x("//i[@class='icon-comparison2']");
 
-    public CitrusSearchFragment searchProduct(String productName) {
+    public HeaderFragment searchProduct(String productName) {
         searchInput.val(productName).pressEnter();
         return this;
     }

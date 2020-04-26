@@ -5,13 +5,13 @@ import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class CitrusCartFragment {
+public class CartFragment {
 
     SelenideElement cartPopUp = $x("//div[@class='el-dialog el-dialog--medium']");
     ElementsCollection productNames = $$(".ctrs-basket-product__name");
     SelenideElement cartTotalPrice = $(".ctrs-basket-footer__new-price");
     ElementsCollection productPrices = $$x("//span[@class='ctrs-main-price']");
-    SelenideElement closeCartButton = $x("//button[@class='el-dialog__headerbtn']");
+    SelenideElement closeCartButton = $(".el-dialog__close.el-icon.el-icon-close");
 
     public SelenideElement getCart() {
         return cartPopUp;

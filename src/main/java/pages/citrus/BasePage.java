@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
 
-    private WebDriver webDriver = WebDriverRunner.getWebDriver();
+    private final WebDriver webDriver = WebDriverRunner.getWebDriver();
 
     public BasePage waitForPageToLoad() {
         new WebDriverWait(webDriver, 10000).until(

@@ -49,6 +49,10 @@ public class CartTest {
         productListPage.clickOnProductByName(productName);
         String productPrice = productPage.getProductPrice();
         productPage.clickAddToCartButton();
+        productPage.getCartFragment()
+                .clickOnCloseCartButton();
+        productPage.getHeaderFragment()
+                .clickOnIconCart();
 
         productPage.getCartFragment().getCart().shouldBe(Condition.visible);
         productPage.getCartFragment().getNamesFromCart().shouldHaveSize(1);
@@ -61,10 +65,14 @@ public class CartTest {
     public void addProductToCartViaSearch() {
         homePage.waitForPageToLoad()
                 .closePopUp()
-                .getSearchFragment()
+                .getHeaderFragment()
                 .searchProduct("Apple iPhone 11");
         String productPrice = productListPage.getProductPriceByName(productName);
         productListPage.clickAddToCartProductByName(productName);
+        productListPage.getCartFragment()
+                .clickOnCloseCartButton();
+        productListPage.getHeaderFragment()
+                .clickOnIconCart();
 
         productListPage.getCartFragment().getCart().shouldBe(Condition.visible);
         productListPage.getCartFragment().getNamesFromCart().shouldHaveSize(1);
@@ -77,7 +85,7 @@ public class CartTest {
     public void addTwoProductToCartViaSearch() {
         homePage.waitForPageToLoad()
                 .closePopUp()
-                .getSearchFragment()
+                .getHeaderFragment()
                 .searchProduct("Apple iPhone");
         String firstProductPrice = productListPage.getProductPriceByPositionList(1);
         String firstProductName = productListPage.getProductNameByPositionList(1);
@@ -90,7 +98,7 @@ public class CartTest {
         productListPage.clickAddToCartProductByPositionList(2);
         productListPage.getCartFragment()
                 .clickOnCloseCartButton();
-        productListPage.getSearchFragment()
+        productListPage.getHeaderFragment()
                 .clickOnIconCart();
 
         productListPage.getCartFragment().getCart().shouldBe(Condition.visible);
@@ -106,7 +114,7 @@ public class CartTest {
     public void addTwoProductToCartViaComparison() {
         homePage.waitForPageToLoad()
                 .closePopUp()
-                .getSearchFragment()
+                .getHeaderFragment()
                 .searchProduct("Apple iPhone");
 
         String firstProductPrice = productListPage.getProductPriceByPositionList(1);
@@ -116,26 +124,25 @@ public class CartTest {
         String secondProductPrice = productListPage.getProductPriceByPositionList(2);
         String secondProductName = productListPage.getProductNameByPositionList(2);
         productListPage.clickAddToCompareProductByPositionList(2);
-        productListPage.getSearchFragment()
+        productListPage.getHeaderFragment()
                 .clickOnIconComparison();
 
-        comparisonPage.clickOnSetBase();
+        //comparisonPage.clickOnSetBase();
         comparisonPage.clickAddToCartProduct(0);
-        productListPage.getCartFragment()
+        comparisonPage.getCartFragment()
                 .clickOnCloseCartButton();
         comparisonPage.clickAddToCartProduct(2);
-        productListPage.getCartFragment()
+        comparisonPage.getCartFragment()
                 .clickOnCloseCartButton();
-        productListPage.getSearchFragment()
+        comparisonPage.getHeaderFragment()
                 .clickOnIconCart();
 
-        productListPage.getCartFragment().getCart().shouldBe(Condition.visible);
-        productListPage.getCartFragment().getNamesFromCart().shouldHaveSize(2);
-        productListPage.getCartFragment().getNamesFromCart().get(0).shouldHave(Condition.text(firstProductName));
-        productListPage.getCartFragment().getPricesFromCart().get(0).shouldHave(Condition.text(firstProductPrice));
-        productListPage.getCartFragment().getNamesFromCart().get(1).shouldHave(Condition.text(secondProductName));
-        productListPage.getCartFragment().getPricesFromCart().get(1).shouldHave(Condition.text(secondProductPrice));
-        productListPage.getCartFragment().getTotalPriceFromCart().shouldHave(Condition.text(productListPage.countTotalPriceInCart()));
-
+        comparisonPage.getCartFragment().getCart().shouldBe(Condition.visible);
+        comparisonPage.getCartFragment().getNamesFromCart().shouldHaveSize(2);
+        comparisonPage.getCartFragment().getNamesFromCart().get(0).shouldHave(Condition.text(firstProductName));
+        comparisonPage.getCartFragment().getPricesFromCart().get(0).shouldHave(Condition.text(firstProductPrice));
+        comparisonPage.getCartFragment().getNamesFromCart().get(1).shouldHave(Condition.text(secondProductName));
+        comparisonPage.getCartFragment().getPricesFromCart().get(1).shouldHave(Condition.text(secondProductPrice));
+        comparisonPage.getCartFragment().getTotalPriceFromCart().shouldHave(Condition.text(productListPage.countTotalPriceInCart()));
     }
 }

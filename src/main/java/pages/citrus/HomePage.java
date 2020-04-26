@@ -1,14 +1,14 @@
 package pages.citrus;
 
 import com.codeborne.selenide.SelenideElement;
-import fragments.CitrusSearchFragment;
+import fragments.HeaderFragment;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class HomePage extends BasePage {
 
-    CitrusSearchFragment searchFragment = new CitrusSearchFragment();
+    HeaderFragment headerFragment = new HeaderFragment();
 
     SelenideElement popUpCloseButton = $(".el-icon-close");
 
@@ -18,7 +18,7 @@ public class HomePage extends BasePage {
     }
 
     public HomePage clickLinkMenu(String linkText) {
-        $x("//a[@href='/smartfony/brand-apple/']/span[contains(text(),'" + linkText + "')]").click();
+        $x("//li[@class='menu-aim__item menu-aim__item--active']//span[contains(text(),'" + linkText + "')]").click();
         return this;
     }
 
@@ -35,7 +35,7 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    public CitrusSearchFragment getSearchFragment() {
-        return searchFragment;
+    public HeaderFragment getHeaderFragment() {
+        return headerFragment;
     }
 }
