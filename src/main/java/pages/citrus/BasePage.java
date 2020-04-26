@@ -1,0 +1,17 @@
+package pages.citrus;
+
+import com.codeborne.selenide.WebDriverRunner;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class BasePage {
+
+    private WebDriver webDriver = WebDriverRunner.getWebDriver();
+
+    public BasePage waitForPageToLoad() {
+        new WebDriverWait(webDriver, 10000).until(
+                webDriver1 -> ( (JavascriptExecutor) webDriver ).executeScript("return document.readyState").equals("complete"));
+        return this;
+    }
+}

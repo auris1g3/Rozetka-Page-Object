@@ -1,7 +1,9 @@
-import Pages.RozetkaComparePage;
-import Pages.RozetkaHomePage;
-import Pages.RozetkaProductDetailsPage;
-import Pages.RozetkaProductListPage;
+package rozetka;
+
+import pages.rozetka.RozetkaComparePage;
+import pages.rozetka.RozetkaHomePage;
+import pages.rozetka.RozetkaProductDetailsPage;
+import pages.rozetka.RozetkaProductListPage;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

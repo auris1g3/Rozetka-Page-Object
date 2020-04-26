@@ -1,5 +1,7 @@
-import Pages.RozetkaFiltersPage;
-import Pages.RozetkaHomePage;
+package rozetka;
+
+import pages.rozetka.RozetkaFiltersPage;
+import pages.rozetka.RozetkaHomePage;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

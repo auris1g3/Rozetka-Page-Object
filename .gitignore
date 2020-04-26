@@ -1,3 +1,4 @@
 /target/
 /.idea/
-/RozetkaPageObject.iml
+/PageObjectRozetkaCitrus.iml
+/build/
