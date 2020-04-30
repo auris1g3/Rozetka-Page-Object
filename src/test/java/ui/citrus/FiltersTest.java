@@ -1,4 +1,4 @@
-package citrus;
+package ui.citrus;
 
 import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeClass;

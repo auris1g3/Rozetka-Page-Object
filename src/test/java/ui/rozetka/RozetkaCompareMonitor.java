@@ -1,4 +1,4 @@
-package rozetka;
+package ui.rozetka;
 
 import pages.rozetka.RozetkaComparePage;
 import pages.rozetka.RozetkaHomePage;
