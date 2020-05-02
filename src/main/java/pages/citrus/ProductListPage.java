@@ -48,16 +48,6 @@ public class ProductListPage extends BasePage {
         return headerFragment;
     }
 
-    public String countTotalPriceInCart() {
-        int firstPrice = Integer.parseInt($$x("//span[@class='ctrs-main-price']").get(0).getText().replace(" ", "").replace("грн", ""));
-        int secondPrice = Integer.parseInt($$x("//span[@class='ctrs-main-price']").get(1).getText().replace(" ", "").replace("грн", ""));
-        int totalSum = firstPrice + secondPrice;
-        String s = Integer.toString(totalSum) + "грн";
-        StringBuilder sb = new StringBuilder(s);
-        sb.insert(2, " ");
-        return sb.toString();
-    }
-
     public ProductListPage clickAddToCompareProductByPositionListFromSearch(int positionProduct) {
         $x("//div[@class='product-card product-card--mini'][" + positionProduct + "]//i[@class='icon-comparison2 el-tooltip item']").hover().click();
         return this;

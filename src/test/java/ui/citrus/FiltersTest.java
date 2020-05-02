@@ -4,16 +4,16 @@ import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.citrus.HomePage;
-import pages.citrus.ProductListPage;
+import steps.HomePageSteps;
+import steps.ProductListPageSteps;
 
 import static com.codeborne.selenide.Selenide.clearBrowserLocalStorage;
 import static com.codeborne.selenide.Selenide.open;
 
 public class FiltersTest {
 
-    HomePage homePage;
-    ProductListPage productListPage;
+    HomePageSteps homePageSteps;
+    ProductListPageSteps productListPageSteps;
 
     @BeforeClass
     public void setUp() {
@@ -21,8 +21,8 @@ public class FiltersTest {
         Configuration.timeout = 5000;
         open("");
 
-        homePage = new HomePage();
-        productListPage = new ProductListPage();
+        homePageSteps = new HomePageSteps();
+        productListPageSteps = new ProductListPageSteps();
 
     }
 
@@ -34,45 +34,22 @@ public class FiltersTest {
 
     @Test
     public void minAndMxPriceFilter() throws Exception {
-        homePage.waitForPageToLoad()
-                .closePopUp()
-                .hoverMenuLne("Смартфоны")
-                .clickLinkMenu("Samsung");
-        productListPage.getFilterFragment()
-                .setMinPrice("5000")
-                .setMaxPrice("15000");
-        productListPage.getFilterFragment()
-                .verifyFilterByName("Samsung");
-        productListPage.getFilterFragment()
-                .verifyPriceFilter(5000, 15000);
+        homePageSteps.clickOnLinkInMenu("Смартфоны", "Samsung");
+        productListPageSteps.setPriceFilter("5000", "15000");
+        productListPageSteps.verifyPriceFilter("Samsung", 5000, 15000);
     }
 
     @Test
     public void memorySizeFilter() throws Exception {
-        homePage.waitForPageToLoad()
-                .closePopUp()
-                .hoverMenuLne("Смартфоны")
-                .clickLinkMenu("Xiaomi");
-        productListPage.getFilterFragment()
-                .setMemorySize(16)
-                .setMemorySize(32);
-        productListPage.getFilterFragment()
-                .verifyFilterByName("Xiaomi");
-        productListPage.getFilterFragment()
-                .verifyMemorySizeFilter("16", "32");
+        homePageSteps.clickOnLinkInMenu("Смартфоны", "Xiaomi");
+        productListPageSteps.setMemorySizeFilter(16,32);
+        productListPageSteps.verifyMemorySizeFilter("Xiaomi", "16", "32");
     }
 
     @Test
     public void bodyMaterialFilter() throws Exception {
-        homePage.waitForPageToLoad()
-                .closePopUp()
-                .hoverMenuLne("Смартфоны")
-                .clickLinkMenu("Google");
-        productListPage.getFilterFragment()
-                .setBodyMaterialFilter("Металл");
-        productListPage.getFilterFragment()
-                .verifyFilterByName("Google");
-        productListPage.getFilterFragment()
-                .verifyBodyMaterialFilter("Металл");
+        homePageSteps.clickOnLinkInMenu("Смартфоны", "Google");
+        productListPageSteps.settBodyMaterialFilter("Металл");
+        productListPageSteps.verifyBodyMaterialFilter("Google", "Металл");
     }
 }

@@ -1,12 +1,12 @@
-package Models;
+package models;
 
 import java.util.Objects;
 
-public class PostResponseModel {
+public class PutResponseModel {
     String status;
-    PostResponseDataModel data;
+    PutResponseDataModel data;
 
-    public PostResponseModel(String status, PostResponseDataModel data) {
+    public PutResponseModel(String status, PutResponseDataModel data) {
         this.status = status;
         this.data = data;
     }
@@ -15,9 +15,9 @@ public class PostResponseModel {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PostResponseModel that = (PostResponseModel) o;
+        PutResponseModel that = (PutResponseModel) o;
         return Objects.equals(status, that.status) &&
-                PostResponseDataModel.equals(data, that.data);
+                PutResponseDataModel.equals(data, that.data);
     }
 
     @Override

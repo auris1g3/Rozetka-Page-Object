@@ -1,6 +1,6 @@
 package api;
 
-import Models.*;
+import models.*;
 import io.restassured.RestAssured;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

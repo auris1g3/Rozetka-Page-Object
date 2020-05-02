@@ -1,5 +1,6 @@
 package pages.citrus;
 
+import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
@@ -8,7 +9,7 @@ import fragments.HeaderFragment;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class ComparisonPage {
+public class ComparisonPage extends BasePage {
 
     CartFragment cartFragment = new CartFragment();
     HeaderFragment headerFragment = new HeaderFragment();
@@ -23,8 +24,8 @@ public class ComparisonPage {
     ElementsCollection productNamesAddToComparison = $$x("//p[@class='product-name']");
     SelenideElement addButton = $x("//button[@class='el-button el-button--primary']");
 
-    public void clickAddToCartProduct(int number) {
-        $$(".icon-new-citrus-cart.el-tooltip.item").get(number).click();
+    public void clickAddToCartProduct(int numberPosition) {
+        $$(".icon-new-citrus-cart.el-tooltip.item").get(numberPosition).click();
     }
 
     public void clickOnSetBase() {
@@ -39,15 +40,15 @@ public class ComparisonPage {
         return headerFragment;
     }
 
-    public ElementsCollection getCountProducts(){
+    public ElementsCollection getCountProducts() {
         return countProducts;
     }
 
-    public ElementsCollection getProductNames(){
+    public ElementsCollection getProductNames() {
         return productNames;
     }
 
-    public ElementsCollection getProductPrice(){
+    public ElementsCollection getProductPrice() {
         return productPrice;
     }
 
@@ -67,4 +68,5 @@ public class ComparisonPage {
     public ElementsCollection getProductNamesAddToComparison() {
         return productNamesAddToComparison;
     }
+
 }

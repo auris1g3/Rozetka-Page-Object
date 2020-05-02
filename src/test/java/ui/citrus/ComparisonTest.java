@@ -5,20 +5,20 @@ import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.citrus.ComparisonPage;
-import pages.citrus.HomePage;
-import pages.citrus.ProductListPage;
-import pages.citrus.ProductPage;
+import steps.ComparisonPageSteps;
+import steps.HomePageSteps;
+import steps.ProductListPageSteps;
+import steps.ProductPageSteps;
 
 import static com.codeborne.selenide.Selenide.clearBrowserLocalStorage;
 import static com.codeborne.selenide.Selenide.open;
 
 public class ComparisonTest {
 
-    HomePage homePage;
-    ProductListPage productListPage;
-    ProductPage productPage;
-    ComparisonPage comparisonPage;
+    HomePageSteps homePageSteps;
+    ProductListPageSteps productListPageSteps;
+    ProductPageSteps productPageSteps;
+    ComparisonPageSteps comparisonPageSteps;
 
     @BeforeClass
     public void setUp() {
@@ -26,10 +26,10 @@ public class ComparisonTest {
         Configuration.timeout = 5000;
         open("");
 
-        homePage = new HomePage();
-        productListPage = new ProductListPage();
-        productPage = new ProductPage();
-        comparisonPage = new ComparisonPage();
+        homePageSteps = new HomePageSteps();
+        productListPageSteps = new ProductListPageSteps();
+        productPageSteps = new ProductPageSteps();
+        comparisonPageSteps = new ComparisonPageSteps();
     }
 
     @BeforeMethod
@@ -40,44 +40,23 @@ public class ComparisonTest {
 
     @Test
     public void comparisonTwoPlusOneProduct(){
-        homePage.waitForPageToLoad()
-                .closePopUp()
-                .hoverMenuLne("Ноутбуки")
-                .clickLinkMenu("Acer");
+        homePageSteps.clickOnLinkInMenu("Ноутбуки", "Acer");
+        productListPageSteps.addProductToCartByPositionFromMenu(1);
+        String firstProductPrice = productListPageSteps.rememberFirstProductPriceByPositionFromMenu(1);
+        String firstProductName = productListPageSteps.rememberFirstProductNameByPositionFromMenu(1);
 
-        productListPage.clickAddToCompareProductByPositionListFromMenu(1);
-        String firstProductPrice = productListPage.getProductPriceByPositionListFromMenu(1);
-        String firstProductName = productListPage.getProductNameByPositionListFromMenu(1);
+        productListPageSteps.addProductToCartByPositionFromMenu(2);
+        String secondProductPrice = productListPageSteps.rememberFirstProductPriceByPositionFromMenu(1);
+        String secondProductName = productListPageSteps.rememberFirstProductNameByPositionFromMenu(1);
 
-        productListPage.clickAddToCompareProductByPositionListFromMenu(2);
-        String secondProductPrice = productListPage.getProductPriceByPositionListFromMenu(2);
-        String secondProductName = productListPage.getProductNameByPositionListFromMenu(2);
+        productListPageSteps.clickOnComparison();
+        comparisonPageSteps.verifyContentInComparisonProduct(firstProductName, firstProductPrice, secondProductName, secondProductPrice);
 
-        productListPage.getHeaderFragment()
-                .clickOnIconComparison();
-        comparisonPage.clickOnSetBase();
+        comparisonPageSteps.clickOnAddToCompareButton();
+        String addedProductPrice = productListPageSteps.rememberAddedProductPriceFromComparison(1);
+        String addedProductName = productListPageSteps.rememberAddedProductNameFromComparison(1);
+        comparisonPageSteps.addThirdProductToComparison();
 
-        comparisonPage.getCountProducts().shouldHaveSize(2);
-        comparisonPage.getProductNames().get(0).shouldHave(Condition.text(firstProductName));
-        comparisonPage.getProductNames().get(2).shouldHave(Condition.text(secondProductName));
-
-        comparisonPage.getProductPrice().get(0).shouldHave(Condition.text(firstProductPrice));
-        comparisonPage.getProductPrice().get(2).shouldHave(Condition.text(secondProductPrice));
-
-        comparisonPage.clickOnAddProductToComparisonButton();
-        String addingProductPrice = comparisonPage.getProductPriceAddToComparison().get(0).getText();
-        String addingProductName = comparisonPage.getProductNamesAddToComparison().get(0).getText();
-        comparisonPage.addFirstProductToComparison();
-
-        comparisonPage.getCountProducts().shouldHaveSize(3);
-        comparisonPage.getProductPrice().get(0).shouldHave(Condition.text(firstProductPrice));
-        comparisonPage.getProductPrice().get(2).shouldHave(Condition.text(secondProductPrice));
-        comparisonPage.getProductPrice().get(4).shouldHave(Condition.text(addingProductPrice));
-
-        comparisonPage.getProductNames().get(0).shouldHave(Condition.text(firstProductName));
-        comparisonPage.getProductNames().get(2).shouldHave(Condition.text(secondProductName));
-        comparisonPage.getProductNames().get(4).shouldHave(Condition.text(addingProductName));
-
-
+        comparisonPageSteps.verifyContentInComparisonProduct(firstProductName, firstProductPrice, secondProductName, secondProductPrice, addedProductName, addedProductPrice);
     }
 }

@@ -2,10 +2,10 @@
 
 <suite name="TestSuite">
     <test name="RunMyTests">
-        <packages>
-            <package name="citrus"/>
-        </packages>
         <classes>
+            <class name="ui.citrus.CartTest"/>
+            <class name="ui.citrus.ComparisonTest"/>
+            <class name="ui.citrus.FiltersTest"/>
         </classes>
     </test>
 </suite>

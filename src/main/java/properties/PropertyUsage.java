@@ -1,4 +1,4 @@
-package Properties;
+package properties;
 
 import Util.PropertiesReaderClassLoader;
 

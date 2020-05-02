@@ -29,7 +29,6 @@ public class FilterFragment {
         ElementsCollection allPrice = $$(".prices__price .price");
         for (int i = 0; i < allPrice.size(); i++) {
             int price = Integer.parseInt(allPrice.get(i).getText().replaceAll(" ", ""));
-            System.out.println(price);
             if (!( price > minPriceValue && price < maxPriceValue )) {
                 throw new Exception("Selected products do not fall within the range of selected prices");
             }
