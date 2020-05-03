@@ -1,9 +1,15 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PostRequestModel {
     String name;
     String salary;
     String age;
+
+    public PostRequestModel() {
+    }
 
     public PostRequestModel(String name, String salary, String age) {
         this.name = name;

@@ -1,8 +1,10 @@
 package api;
 
+import listener.LogListener;
 import models.*;
 import io.restassured.RestAssured;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.when;
@@ -10,9 +12,10 @@ import static io.restassured.RestAssured.with;
 import static org.hamcrest.Matchers.equalTo;
 import static org.testng.Assert.assertEquals;
 
+@Listeners(LogListener.class)
 public class DummyRestApiTests {
 
-    String cookies = "PHPSESSID=6e18943eaf715ee5483ccb71cbf1d455; ezoadgid_133674=-1; ezoref_133674=; ezoab_133674=mod92-c; active_template::133674=pub_site.1588187334";
+    String cookies = "PHPSESSID=e804c5f25ccfad2ff656b107a2363960; ezoadgid_133674=-1; ezoref_133674=; ezoab_133674=mod1; active_template::133674=pub_site.1588517754";
     String contentType = "text/plain";
 
     @BeforeClass
@@ -27,6 +30,8 @@ public class DummyRestApiTests {
                 .then()
                 .statusCode(200)
                 .assertThat()
+                .log()
+                .all()
                 .body("status", equalTo("success"))
                 .body("data[0].employee_name", equalTo("Tiger Nixon"))
                 .body("data[1].employee_name", equalTo("Garrett Winters"))
@@ -34,7 +39,7 @@ public class DummyRestApiTests {
                 .body("data[3].employee_salary", equalTo("433060"));
     }
 
-    @Test
+    @Test(priority = 5)
     public void getEmployeeById() {
         String id = "1";
         String employeeName = "Tiger Nixon";
@@ -46,6 +51,8 @@ public class DummyRestApiTests {
 
         with()
                 .header("Cookie", cookies)
+                .log()
+                .all()
                 .when()
                 .request("GET", "/api/v1/employee/1")
                 .then()
@@ -65,10 +72,14 @@ public class DummyRestApiTests {
         PostRequestModel postRequest = new PostRequestModel(employeeName, employeeSalary, employeeAge);
         PostResponseModel postResponse = with()
                 .body(postRequest.toString())
+                .log()
+                .all()
                 .when()
                 .request("POST", "/api/v1/create")
                 .then()
                 .statusCode(200)
+                .log()
+                .all()
                 .extract()
                 .as(PostResponseModel.class);
         PostResponseModel expectedPostModel = new PostResponseModel("success", new PostResponseDataModel(employeeName, employeeSalary, employeeAge));
@@ -80,17 +91,21 @@ public class DummyRestApiTests {
         String employeeName = "Alex";
         String employeeSalary = "2500";
         String employeeAge = "43";
-        String id = "24";
+        String id = "23";
 
         PutRequestModel putRequest = new PutRequestModel(employeeName, employeeSalary, employeeAge);
         PutResponseModel putResponse = with()
+                .log()
+                .all()
                 .header("Cookie", cookies)
-                .header("Content-Type", contentType)
+                //.header("Content-Type", contentType)
                 .body(putRequest.toString())
                 .when()
                 .request("PUT", "/api/v1/update/" + id)
                 .then()
                 .statusCode(200)
+                .log()
+                .all()
                 .extract()
                 .as(PutResponseModel.class);
         PutResponseModel expectedPutModel = new PutResponseModel("success", new PutResponseDataModel(employeeName, employeeSalary, employeeAge));
@@ -101,10 +116,14 @@ public class DummyRestApiTests {
     public void deleteEmployeeById() {
         with()
                 .header("Cookie", cookies)
+                .log()
+                .all()
                 .when()
-                .request("DELETE", "/api/v1/delete/24")
+                .request("DELETE", "/api/v1/delete/23")
                 .then()
                 .statusCode(200)
+                .log()
+                .all()
                 .assertThat()
                 .body("status", equalTo("success"))
                 .body("message", equalTo("successfully! deleted Records"));
@@ -115,6 +134,8 @@ public class DummyRestApiTests {
         when()
                 .request("GET", "/api/v1/employee")
                 .then()
+                .log()
+                .all()
                 .statusCode(404);
     }
 
@@ -124,6 +145,8 @@ public class DummyRestApiTests {
                 .request("GET", "/api/v1/employee/24")
                 .then()
                 .statusCode(400)
+                .log()
+                .all()
                 .assertThat()
                 .body("status", equalTo("failed"))
                 .body("message", equalTo("Oops! someting issue found to fetch record."));
@@ -134,6 +157,8 @@ public class DummyRestApiTests {
         when()
                 .request("POST", "/api/v1/create/23")
                 .then()
+                .log()
+                .all()
                 .statusCode(404);
     }
 
@@ -147,11 +172,15 @@ public class DummyRestApiTests {
         PutRequestModel putRequest = new PutRequestModel(employeeName, employeeSalary, employeeAge);
         with()
                 .header("Content-Type", "text/plain")
+                .log()
+                .all()
                 .body(putRequest.toString())
                 .when()
                 .request("PUT", "/api/v1/update/" + id)
                 .then()
                 .statusCode(200)
+                .log()
+                .all()
                 .assertThat()
                 .body("status", equalTo("success"))
                 .body("data", equalTo(null));
@@ -161,10 +190,14 @@ public class DummyRestApiTests {
     public void deleteNegativeEmployeeById() {
         with()
                 .header("Cookie", cookies)
+                .log()
+                .all()
                 .when()
                 .request("DELETE", "/api/v1/delete/244")
                 .then()
                 .statusCode(200)
+                .log()
+                .all()
                 .assertThat()
                 .body("status", equalTo("failed"))
                 .body("message", equalTo("Error! Id must be greater than zerp"));

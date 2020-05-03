@@ -1,12 +1,18 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PutResponseDataModel {
     String employee_name;
     String employee_salary;
     String employee_age;
     String id;
+
+    public PutResponseDataModel() {
+    }
 
     public PutResponseDataModel(String employee_name, String employee_salary, String employee_age) {
         this.employee_name = employee_name;

@@ -1,11 +1,17 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GetResponseDataModel {
     String id;
     String employee_name;
     String employee_salary;
     String employee_age;
     String profile_image;
+
+    public GetResponseDataModel() {
+    }
 
     public GetResponseDataModel(String id, String employee_name, String employee_salary, String employee_age, String profile_image) {
         this.id = id;

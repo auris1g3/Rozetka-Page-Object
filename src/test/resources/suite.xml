@@ -3,6 +3,7 @@
 <suite name="TestSuite">
     <test name="RunMyTests">
         <classes>
+            <class name="api.DummyRestApiTests"/>
             <class name="ui.citrus.CartTest"/>
             <class name="ui.citrus.ComparisonTest"/>
             <class name="ui.citrus.FiltersTest"/>

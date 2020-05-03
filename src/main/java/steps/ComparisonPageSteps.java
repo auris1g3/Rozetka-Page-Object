@@ -1,23 +1,27 @@
 package steps;
 
 import com.codeborne.selenide.Condition;
+import io.qameta.allure.Step;
 import pages.citrus.ComparisonPage;
 
 public class ComparisonPageSteps {
 
     ComparisonPage comparisonPage = new ComparisonPage();
 
+    @Step
     public void addProductToCartByPosition(int position) {
         comparisonPage.clickAddToCartProduct(position);
         comparisonPage.getCartFragment()
                 .clickOnCloseCartButton();
     }
 
+    @Step
     public void clickOnCart() {
         comparisonPage.getHeaderFragment()
                 .clickOnIconCart();
     }
 
+    @Step
     public void verifyContentInCartTwoProduct(String firstProductName, String firstProductPrice, String secondProductName, String secondProductPrice) {
         comparisonPage.getCartFragment().getCart().shouldBe(Condition.visible);
         comparisonPage.getCartFragment().getNamesFromCart().shouldHaveSize(2);
@@ -28,6 +32,7 @@ public class ComparisonPageSteps {
         comparisonPage.getCartFragment().getTotalPriceFromCart().shouldHave(Condition.text(comparisonPage.countTotalPriceInCart()));
     }
 
+    @Step
     public void verifyContentInComparisonProduct(String firstProductName, String firstProductPrice, String secondProductName, String secondProductPrice) {
         comparisonPage.getCountProducts().shouldHaveSize(2);
         comparisonPage.getProductNames().get(0).shouldHave(Condition.text(firstProductName));
@@ -36,14 +41,17 @@ public class ComparisonPageSteps {
         comparisonPage.getProductPrice().get(2).shouldHave(Condition.text(secondProductPrice));
     }
 
+    @Step
     public void clickOnAddToCompareButton() {
         comparisonPage.clickOnAddProductToComparisonButton();
     }
 
+    @Step
     public void addThirdProductToComparison() {
         comparisonPage.addFirstProductToComparison();
     }
 
+    @Step
     public void verifyContentInComparisonProduct(String firstProductName, String firstProductPrice, String secondProductName, String secondProductPrice, String addedProductName, String addedProductPrice) {
         comparisonPage.getCountProducts().shouldHaveSize(3);
         comparisonPage.getProductPrice().get(0).shouldHave(Condition.text(firstProductPrice));

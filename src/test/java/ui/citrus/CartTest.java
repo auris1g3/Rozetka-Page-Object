@@ -1,9 +1,12 @@
 package ui.citrus;
 
 import com.codeborne.selenide.Configuration;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.citrus.BasePage;
 import steps.ComparisonPageSteps;
 import steps.HomePageSteps;
 import steps.ProductListPageSteps;
@@ -39,7 +42,14 @@ public class CartTest {
         open("");
     }
 
-    @Test
+    @AfterMethod
+    public void tearDown(ITestResult result) {
+        if (result.getStatus() == ITestResult.FAILURE) {
+            BasePage.screenshot();
+        }
+    }
+
+    @Test(description = "Add product to cart from menu")
     public void addProductToCartViaMenu() {
         homePageSteps.clickOnLinkInMenu("Смартфоны", "Apple");
         productListPageSteps.clickOnProduct(productName);
@@ -48,7 +58,7 @@ public class CartTest {
         productPageSteps.verifyContentInCart(productName, productPrice);
     }
 
-    @Test
+    @Test(description = "Add product to cart from search input")
     public void addProductToCartViaSearch() {
         homePageSteps.searchProductByName("Apple iPhone 11");
         String productPrice = productListPageSteps.rememberProductPriceByName(productName);
@@ -56,7 +66,7 @@ public class CartTest {
         productListPageSteps.verifyContentInCart(productName, productPrice);
     }
 
-    @Test
+    @Test(description = "Add two product to cart search input")
     public void addTwoProductToCartViaSearch() {
         homePageSteps.searchProductByName("Apple iPhone");
         String firstProductPrice = productListPageSteps.rememberFirstProductPriceByPositionFromSearch(1);
@@ -69,7 +79,7 @@ public class CartTest {
         productListPageSteps.verifyContentInCartTwoProduct(firstProductName, firstProductPrice, secondProductName, secondProductPrice);
     }
 
-    @Test
+    @Test(description = "Add two product to cart from comparison page")
     public void addTwoProductToCartViaComparison() {
         homePageSteps.searchProductByName("Apple iPhone");
         String firstProductPrice = productListPageSteps.rememberFirstProductPriceByPositionFromSearch(1);

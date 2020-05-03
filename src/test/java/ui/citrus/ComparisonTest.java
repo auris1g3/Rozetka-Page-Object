@@ -2,9 +2,12 @@ package ui.citrus;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.citrus.BasePage;
 import steps.ComparisonPageSteps;
 import steps.HomePageSteps;
 import steps.ProductListPageSteps;
@@ -38,7 +41,14 @@ public class ComparisonTest {
         open("");
     }
 
-    @Test
+    @AfterMethod
+    public void tearDown(ITestResult result) {
+        if (result.getStatus() == ITestResult.FAILURE) {
+            BasePage.screenshot();
+        }
+    }
+
+    @Test(description = "Comparison two product and adding third product")
     public void comparisonTwoPlusOneProduct(){
         homePageSteps.clickOnLinkInMenu("Ноутбуки", "Acer");
         productListPageSteps.addProductToCartByPositionFromMenu(1);

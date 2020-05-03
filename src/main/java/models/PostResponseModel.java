@@ -1,10 +1,16 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PostResponseModel {
     String status;
     PostResponseDataModel data;
+
+    public PostResponseModel() {
+    }
 
     public PostResponseModel(String status, PostResponseDataModel data) {
         this.status = status;
