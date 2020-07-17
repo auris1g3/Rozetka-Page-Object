@@ -1,0 +1,38 @@
+version: 2.1
+
+orbs:
+  browser-tools: circleci/browser-tools@1.0.1
+  maven: circleci/maven@1.0.1
+  allure: ayte/allure@0.1.3
+
+jobs:
+#  build:
+#    docker:
+#      - image: circleci/openjdk:8-jdk
+#
+#    working_directory: ~/repo
+#
+#    steps:
+#      - checkout
+
+  test:
+    docker:
+      - image: circleci/openjdk:8-jdk-node-browsers
+      - image: circleci/postgres:9.6.15-alpine
+    steps:
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
+      - checkout
+      - run: mvn clean test
+
+      - store_test_results:
+          path: target/surefire-reports
+
+workflows:
+  build_and_test:
+    jobs:
+#      - build
+      - test
+
+
+
